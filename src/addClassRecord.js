@@ -35,13 +35,14 @@ import Select from 'react-select';
 
         let member_options = members.map((i) => ({ label: i.member_name, value: i.member_name }));
         let lesson_options = lessons.map((i) => ({ label: i.lesson_name, value: i.lesson_name }));
+          
 
         const handleSumit = async (e) => {
           e.preventDefault();
           await axios.post('http://localhost:8080/addNewRecord',{
             member_name : member,
             lesson_name : lesson,
-            class_date : date
+            class_date : date          
           });
       }
 
@@ -53,8 +54,8 @@ import Select from 'react-select';
             </h1>
 
             <form className="form" onSubmit={ handleSumit }>
-                選擇學員姓名 : <Select options={member_options} onChange={ (e) => setMember(e)} />
-                選擇課程 : <Select options={lesson_options} onChange={ (e) => setLesson(e)} />
+                選擇學員姓名 : <Select options={member_options} onChange={ (e) => setMember(e.value)} />
+                選擇課程 : <Select options={lesson_options} onChange={ (e) => setLesson(e.value)} />
                 選擇上課日 : <input className='payDay' type="date" onChange={ (e) => setDate(e.target.value) }></input>
                 <Button type="submit" >送出上課紀錄</Button>
            </form>
