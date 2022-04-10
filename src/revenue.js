@@ -10,26 +10,15 @@ import axios from 'axios';
         const [fromDate, setFromDate] = useState('');
         const [toDate, setToDate] = useState('');
 
-        const [revenue, setRevenue] = useState();
-
-
-          useEffect(() => {
-            fetch("http://localhost:8080/revenue")
-              .then(resp => resp.json())
-              .then(resp => {
-                setRevenue(resp)
-              })
-          }, [])
-
-          
+        const [revenue, setRevenue] = useState('');
 
         const handleSumit = async (e) => {
           e.preventDefault();
-          await axios.post('http://localhost:8080/revenue',{
-            fromDate : fromDate,
-            toDate : toDate,        
-          });
-      }
+          const data = await axios.get('http://localhost:8080/revenue',
+          { params: { fromDate : fromDate,
+            toDate : toDate } });
+          setRevenue(data.data[0].revenue);
+        }
 
 
         return (
@@ -41,7 +30,7 @@ import axios from 'axios';
             <form className="form" onSubmit={ handleSumit }>
                 選擇起算日 : <input className='fromDay' type="date" onChange={ (e) => setFromDate(e.target.value) }></input>
                 選擇止算日 : <input className='toDay' type="date" onChange={ (e) => setToDate(e.target.value) }></input>
-                <Button type="submit" >查詢學員剩餘堂數</Button>
+                <Button type="submit" >查詢營收金額</Button>
            </form>
 
            <h1>
