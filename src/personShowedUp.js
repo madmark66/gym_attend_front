@@ -8,25 +8,15 @@ import axios from 'axios';
 
         const [showedUpDate, setShowedUpDate] = useState('');
 
-        const [person, setPerson] = useState();
+        const [person, setPerson] = useState([]);
 
-
-          useEffect(() => {
-            fetch("http://localhost:8080/personShowedUp")
-              .then(resp => resp.json())
-              .then(resp => {
-                setPerson(resp)
-              })
-          }, [])
-
-          
 
         const handleSumit = async (e) => {
           e.preventDefault();
-          await axios.post('http://localhost:8080/personShowedUp',{
-            showedUpDate : showedUpDate,       
-          });
-      }
+          const data = await axios.get('http://localhost:8080/personShowedUp',
+          { params: { showedUpDate : showedUpDate } });
+          await setPerson(data.data.map((item)=>{item.member_name}));
+        }
 
 
         return (
