@@ -4,9 +4,11 @@ import MaterialTable from 'material-table'
 
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./login";
+import Register from "./register";
 import AddClassRecord from "./addClassRecord";
 import AddPaymentRecord from "./addPaymentRecord";
-import Home from "./home";
+import ClassRecord from "./ClassRecord";
 import Revenue from './revenue';
 import PersonShowedUp from './personShowedUp';
 import RemainingDeadline from './remainingDeadline';
@@ -18,7 +20,9 @@ function App() {
   return (
   <Router>
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/ClassRecord' element={<ClassRecord />} />
             <Route path='/payment' element={<Payment />} />
             <Route path='/addClassRecord' element={<AddClassRecord/>} />
             <Route path='/addPaymentRecord' element={<AddPaymentRecord/>} />

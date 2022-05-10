@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import MaterialTable from 'material-table'
 import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
 var moment = require('moment');
 
 
-function Home() {
+function ClassRecord() {
 
   const [data, setData] = useState([])
   const columns = [
@@ -31,23 +34,24 @@ function Home() {
   return (
 
     <div className="App">
-      <h1 align="center">GYM首頁</h1>
-      <h4 align='center'>Class Records</h4>
-             
-      <MaterialTable
-        title="所有上課紀錄"
-        data={data}
-        columns={columns}
-      />
-      <a href='/addClassRecord'><Button>新增上課紀錄</Button></a>
-      <a href='/payment'><Button variant="secondary">所有繳費紀錄</Button></a>
-      <a href='/revenue'><Button>查詢營收</Button></a>
-      <a href='/personShowedUp'><Button variant="danger">查詢某日出席學員</Button></a>
-      <a href='/remainingDeadline'><Button>查詢學員剩餘堂數/上課期限/上課日期</Button></a>
+
+        <h1 align="center">GYM首頁</h1>
+        <h4 align='center'>Class Records</h4>
+              
+        <MaterialTable
+          title="所有上課紀錄"
+          data={data}
+          columns={columns}
+        />
+        <a href='/addClassRecord'><Button>新增上課紀錄</Button></a>
+        <a href='/payment'><Button variant="secondary">所有繳費紀錄</Button></a>
+        <a href='/revenue'><Button>查詢營收</Button></a>
+        <a href='/personShowedUp'><Button variant="danger">查詢某日出席學員</Button></a>
+        <a href='/remainingDeadline'><Button>查詢學員剩餘堂數/上課期限/上課日期</Button></a>
       
     </div>
   
   );
 }
 
-export default Home;
+export default ClassRecord;
