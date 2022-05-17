@@ -13,6 +13,7 @@ import Revenue from './revenue';
 import PersonShowedUp from './personShowedUp';
 import RemainingDeadline from './remainingDeadline';
 import Payment from './payment';
+import ProtectedRoutes from "./ProtectedRoutes.jsx";
 
 
 function App() {
@@ -22,13 +23,15 @@ function App() {
           <Routes>
             <Route path='/' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/ClassRecord' element={<ClassRecord />} />
-            <Route path='/payment' element={<Payment />} />
-            <Route path='/addClassRecord' element={<AddClassRecord/>} />
-            <Route path='/addPaymentRecord' element={<AddPaymentRecord/>} />
-            <Route path='/revenue' element={<Revenue/>} />
-            <Route path='/personShowedUp' element={<PersonShowedUp/>} />
-            <Route path='/remainingDeadline' element={<RemainingDeadline/>} />
+              <Route element={<ProtectedRoutes />}>
+                <Route path='/ClassRecord' element={<ClassRecord />} />
+                <Route path='/payment' element={<Payment />} />
+                <Route path='/addClassRecord' element={<AddClassRecord/>} />
+                <Route path='/addPaymentRecord' element={<AddPaymentRecord/>} />
+                <Route path='/revenue' element={<Revenue/>} />
+                <Route path='/personShowedUp' element={<PersonShowedUp/>} />
+                <Route path='/remainingDeadline' element={<RemainingDeadline/>} />
+              </Route>
           </Routes>
 
   </Router>
