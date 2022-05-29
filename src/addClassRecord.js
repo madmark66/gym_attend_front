@@ -2,12 +2,20 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 import Select from 'react-select';
 
 
     function AddClassRecord() {
+        axios.defaults.withCredentials = true;
+
+        axios.interceptors.request.use(config => {
+          config.withCredentials = true;
+      
+          return config;
+        });
 
         const [members, setMembers] = useState([]);
         const [lessons, setLessons] = useState([]);
@@ -15,18 +23,23 @@ import Select from 'react-select';
         const [member, setMember] = useState('');
         const [lesson, setLesson] = useState('');
         const [date, setDate] = useState('');
+        const navigate = useNavigate();
 
         useEffect(() => {
-            fetch("http://localhost:8080/members")
-              .then(resp => resp.json())
+          //axios.defaults.withCredentials = true;
+            fetch("http://localhost:8080/members",{
+              credentials: "include"
+            }).then(resp => resp.json())
               .then(resp => {
                 setMembers(resp)
               })
           }, [])
 
           useEffect(() => {
-            fetch("http://localhost:8080/lessons")
-              .then(resp => resp.json())
+            //axios.defaults.withCredentials = true;
+            fetch("http://localhost:8080/lessons",{
+              credentials: "include"
+            }).then(resp => resp.json())
               .then(resp => {
                 setLessons(resp)
               })
@@ -39,11 +52,18 @@ import Select from 'react-select';
 
         const handleSumit = async (e) => {
           e.preventDefault();
+          //withCredentials: true
+          //axios.defaults.withCredentials = true;
+
           await axios.post('http://localhost:8080/addNewRecord',{
             member_name : member,
             lesson_name : lesson,
-            class_date : date          
+            class_date : date     
           });
+
+          //以下跳轉功能目前無作用，待修    
+          await navigate('/ClassRecord'); //新增紀錄OK就轉到classRecord 
+          
       }
 
 

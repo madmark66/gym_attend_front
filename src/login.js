@@ -43,9 +43,11 @@ function Login() {
   const handleLogin = async () => {
     //e.preventDefault();
     try {
+      axios.defaults.withCredentials = true;
       const res = await axios.post("http://localhost:8080/login", 
       { email, password });
       setUser(res.data);
+      console.log(user);
       navigate('/ClassRecord'); //login帳號OK就轉到classRecord
     } catch (err) {
       console.log(err);
