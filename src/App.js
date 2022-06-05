@@ -14,13 +14,14 @@ import PersonShowedUp from './personShowedUp';
 import RemainingDeadline from './remainingDeadline';
 import Payment from './payment';
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
-
+import Home from "./Home"
 
 function App() {
 
   return (
   <Router>
           <Routes>
+            <Route path='/home' element={<Home />} />
             <Route path='/' element={<Login />} />
             <Route path='/register' element={<Register />} />
               <Route element={<ProtectedRoutes />}>

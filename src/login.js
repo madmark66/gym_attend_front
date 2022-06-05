@@ -11,8 +11,10 @@ import Nav from 'react-bootstrap/Nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import ProtectedRoutes from "./ProtectedRoutes";
 var moment = require('moment');
 
+// export const LoginContext = React.createContext(); 
 
 function Login() {
 
@@ -23,22 +25,8 @@ function Login() {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
-
-  const refreshToken = async () => {
-    try {
-      const res = await axios.post("/refresh", { token: user.refreshToken });
-      setUser({
-        ...user,
-        accessToken: res.data.accessToken,
-        refreshToken: res.data.refreshToken,
-      });
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const axiosJWT = axios.create()
+  
+  
 
   const handleLogin = async () => {
     //e.preventDefault();
@@ -46,9 +34,15 @@ function Login() {
       axios.defaults.withCredentials = true;
       const res = await axios.post("http://localhost:8080/login", 
       { email, password });
-      setUser(res.data);
-      console.log(user);
-      navigate('/ClassRecord'); //login帳號OK就轉到classRecord
+      
+      const serverRes = await res.data;
+      
+      if(serverRes){
+        setUser(res.data);
+        return (<ProtectedRoutes user={user}/>);
+      }
+      
+      await navigate('/ClassRecord'); //login帳號OK就轉到classRecord
     } catch (err) {
       console.log(err);
     }
@@ -81,18 +75,27 @@ function Login() {
 
   return (
     <div className="login">
+       
        <h1 align="center">Welcome!!ようこそ！！歡迎!!</h1>
        <h1 align="center">悉力運動教室</h1>
+       
 
         <Navbar bg="light" expand="lg">
           <Container>
             <Navbar.Brand href="register">加入會員</Navbar.Brand>
           </Container>
+
+          
         </Navbar>
+
+        {/* <LoginContext.Provider value={user}>
+              <ProtectedRoutes />
+        </LoginContext.Provider> */}
+        {/* <UseAuth user={user}></UseAuth> */}
         
 
         <div class="form-container">
-
+        
           <form class="register-form" onSubmit={handleSubmit(handleLogin, handleError)}>
               
               <label>電子信箱</label>
@@ -127,16 +130,33 @@ function Login() {
               <button class="form-field" type="submit" >
                 會員登入
               </button>
+              
+              
         </form>
-        </div>
+        </div>        
       
   </div>
 
+  
   );
-
+  
+  
 }
 
+// function UseAuth (props) {
+  
+//   if (props.user){
+//     return true;
+//   } else {
+//     return false;
+//   }
+  
+// }
+
+//export {Login, UseAuth};
+
 export default Login;
+
 
 
 
@@ -211,3 +231,21 @@ export default Login;
 //     </button>
 // </form>
 // </div> */}
+
+
+
+  // const refreshToken = async () => {
+  //   try {
+  //     const res = await axios.post("/refresh", { token: user.refreshToken });
+  //     setUser({
+  //       ...user,
+  //       accessToken: res.data.accessToken,
+  //       refreshToken: res.data.refreshToken,
+  //     });
+  //     return res.data;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // const axiosJWT = axios.create()
