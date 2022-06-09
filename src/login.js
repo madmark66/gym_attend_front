@@ -1,5 +1,5 @@
 import "./index.css";
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import ProtectedRoutes from "./ProtectedRoutes";
 var moment = require('moment');
 
-// export const LoginContext = React.createContext(); 
+export const AuthContext = React.createContext(); 
 
 function Login() {
 
@@ -133,7 +133,10 @@ function Login() {
               
               
         </form>
-        </div>        
+        </div>   
+        <AuthContext.Provider value={user}>
+           <ProtectedRoutes />
+        </AuthContext.Provider>     
       
   </div>
 
