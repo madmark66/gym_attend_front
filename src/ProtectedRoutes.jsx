@@ -1,33 +1,29 @@
-import React, { useContext } from 'react';
+import React from 'react';
 //import { Navigate, Outlet } from "react-router-dom";
-import {AuthContext} from "./login";
 import {
   BrowserRouter,
   Route,
   Switch,
   Redirect
 } from 'react-router-dom';
+import { useContext } from 'react';
+import {AuthContext} from "./login.js";
+import Islogin from "./Islogin.js";
 
-
-
-const isAuthenticated = () => {
-  //const user = useContext(AuthContext);
-  //console.log(user);
-  const userFinal = { loggedIn: false };
-  return userFinal && userFinal.loggedIn;
-};
 
 const ProtectedRoutes = ({ component: Component, ...rest }) => {
+  
+
   return (
     <Route
       {...rest}
       render={props =>
-        isAuthenticated() ? (
+        Islogin() ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: "/",
             }}
           />
         )

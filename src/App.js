@@ -15,21 +15,34 @@ import RemainingDeadline from './remainingDeadline';
 import Payment from './payment';
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
 import Home from "./Home"
-import {AppContextProvider} from "./login";
+import {AppContextProvider} from "./login.js";
 
 function App() {
 
   return (
   <Router>
-
-
-        
+       
           <Switch>
             <AppContextProvider>
-              <Route exact path="/home">
+              {/* <Route exact path="/home">
                 <Home />
+              </Route> */}
+              <Route exact path='/' >
+                <Login />
               </Route>
-        
+              <Route exact path='/register' >
+                <Register />
+              </Route>
+
+              {/* <Route>
+                <ProtectedRoutes />
+              </Route> */}
+
+              <ProtectedRoutes path="/ClassRecord" exact component={ClassRecord}/>
+
+              <ProtectedRoutes path="/home" exact component={Home}/>
+               
+
             </AppContextProvider>
           {/* <Route path="/home" component={<Home />} />
             <Route path='/' element={<Login />} />
