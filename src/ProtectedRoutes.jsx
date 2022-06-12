@@ -11,8 +11,8 @@ import {
 
 
 const isAuthenticated = () => {
-  const user = useContext(AuthContext);
-  console.log(user);
+  //const user = useContext(AuthContext);
+  //console.log(user);
   const userFinal = { loggedIn: false };
   return userFinal && userFinal.loggedIn;
 };
