@@ -1,5 +1,5 @@
 import "./index.css";
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, createContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
@@ -9,12 +9,22 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import ProtectedRoutes from "./ProtectedRoutes";
+import Home from "./Home"
 var moment = require('moment');
 
-export const AuthContext = React.createContext(); 
+export const AuthContext = createContext();
+
+export const AppContextProvider = ({ children }) => {
+        return(
+        <AuthContext.Provider value='test1'>
+                    {children}
+        </AuthContext.Provider>
+        )
+        
+}
 
 function Login() {
 
@@ -23,9 +33,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
-  
+  let history = useHistory();
   
 
   const handleLogin = async () => {
@@ -35,14 +44,15 @@ function Login() {
       const res = await axios.post("http://localhost:8080/login", 
       { email, password });
       
-      const serverRes = await res.data;
+      //const serverRes = await res.data;
+      setUser(res.data);
+
+      // if(serverRes){
+      //   setUser(res.data);
+      //   return (<ProtectedRoutes user={user}/>);
+      // }
       
-      if(serverRes){
-        setUser(res.data);
-        return (<ProtectedRoutes user={user}/>);
-      }
-      
-      await navigate('/ClassRecord'); //login帳號OK就轉到classRecord
+      history.push('/ClassRecord'); //login帳號OK就轉到classRecord
     } catch (err) {
       console.log(err);
     }
@@ -88,10 +98,7 @@ function Login() {
           
         </Navbar>
 
-        {/* <LoginContext.Provider value={user}>
-              <ProtectedRoutes />
-        </LoginContext.Provider> */}
-        {/* <UseAuth user={user}></UseAuth> */}
+        
         
 
         <div class="form-container">
@@ -134,9 +141,7 @@ function Login() {
               
         </form>
         </div>   
-        <AuthContext.Provider value={user}>
-           <ProtectedRoutes />
-        </AuthContext.Provider>     
+           
       
   </div>
 

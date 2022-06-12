@@ -7,7 +7,7 @@ import axios from 'axios';
 import './App.css';
 import { useForm } from "react-hook-form";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 function Register() {
@@ -16,7 +16,7 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  let history = useHistory();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const handleRegistration = async () => {
@@ -26,7 +26,7 @@ function Register() {
         const res = await axios.post("http://localhost:8080/register",
          { name:name,email:email,password:password });
         setUser(res.data);
-        navigate('/'); //申請帳號OK就轉到login
+        history.push('/'); //申請帳號OK就轉到login
       } catch (err) {
         console.log(err);
       }

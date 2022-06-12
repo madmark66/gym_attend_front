@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 import Select from 'react-select';
@@ -23,7 +23,7 @@ import Select from 'react-select';
         const [member, setMember] = useState('');
         const [lesson, setLesson] = useState('');
         const [date, setDate] = useState('');
-        const navigate = useNavigate();
+        let history = useHistory();
 
         useEffect(() => {
           //axios.defaults.withCredentials = true;
@@ -62,7 +62,7 @@ import Select from 'react-select';
           });
 
           //以下跳轉功能目前無作用，待修    
-          await navigate('/ClassRecord'); //新增紀錄OK就轉到classRecord 
+          await history.push('/ClassRecord'); //新增紀錄OK就轉到classRecord 
           
       }
 
