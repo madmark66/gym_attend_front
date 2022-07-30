@@ -26,7 +26,6 @@ import Select from 'react-select';
         let history = useHistory();
 
         useEffect(() => {
-          //axios.defaults.withCredentials = true;
             fetch("http://localhost:8080/members",{
               credentials: "include"
             }).then(resp => resp.json())
@@ -36,7 +35,6 @@ import Select from 'react-select';
           }, [])
 
           useEffect(() => {
-            //axios.defaults.withCredentials = true;
             fetch("http://localhost:8080/lessons",{
               credentials: "include"
             }).then(resp => resp.json())
@@ -52,8 +50,6 @@ import Select from 'react-select';
 
         const handleSumit = async (e) => {
           e.preventDefault();
-          //withCredentials: true
-          //axios.defaults.withCredentials = true;
 
           await axios.post('http://localhost:8080/addNewRecord',{
             member_name : member,
@@ -62,7 +58,7 @@ import Select from 'react-select';
           });
 
           //以下跳轉功能目前無作用，待修    
-          await history.push('/ClassRecord'); //新增紀錄OK就轉到classRecord 
+          history.push('/ClassRecord'); //新增紀錄OK就轉到classRecord 
           
       }
 
@@ -80,7 +76,7 @@ import Select from 'react-select';
                 <Button type="submit" >送出上課紀錄</Button>
            </form>
 
-            <a href="/"><button>
+            <a href="/ClassRecord"><button>
               回首頁 
             </button></a>
             

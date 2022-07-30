@@ -37,7 +37,7 @@ import axios from 'axios';
               選擇區間營收 : 台幣 {revenue} 元 
             </h1>
 
-            <a href="/"><button>
+            <a href="/ClassRecord"><button>
               回首頁 
             </button></a>
             

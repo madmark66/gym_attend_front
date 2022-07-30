@@ -16,13 +16,7 @@ import axios from 'axios';
           const data = await axios.get('http://localhost:8080/personShowedUp', //router 在 後端的 index.js裡
           { params: { showedUpDate : showedUpDate } });
           await setPerson(data.data.map(item=>item.member_name));
-          //await console.log(data.data);
         }
-        //console.log(person.data.map(item=>item.member_name));
-        //const names = person.map(item=>item);
-        
-        //console.log(person);
-
 
         return (
           <div>
@@ -39,7 +33,7 @@ import axios from 'axios';
               出席人及課程 :  {person.map(item => item + ',')}
             </h1>
 
-            <a href="/"><button>
+            <a href="/ClassRecord"><button>
               回首頁 
             </button></a>
             

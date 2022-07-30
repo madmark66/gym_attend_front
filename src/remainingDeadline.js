@@ -44,7 +44,7 @@ function RemainingDeadline() {
   return (
 
     <div className="App">
-      <a href="/"><button>
+      <a href="/ClassRecord"><button>
               回首頁 
             </button>
       </a>

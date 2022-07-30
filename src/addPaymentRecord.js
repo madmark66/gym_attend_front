@@ -63,7 +63,7 @@ import Select from 'react-select';
                 <Button type="submit" >送出繳費紀錄</Button>
            </form>
 
-            <a href="/"><button>
+            <a href="/ClassRecord"><button>
               回首頁 
             </button></a>
             

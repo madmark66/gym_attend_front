@@ -42,7 +42,7 @@ function Payment() {
       />
       <a href='/addPaymentRecord'><Button>新增繳費紀錄</Button></a>
 
-      <a href="/"><button>
+      <a href="/ClassRecord"><button>
               回首頁 
             </button></a>
       

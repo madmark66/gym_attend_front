@@ -1,35 +1,24 @@
 import React from 'react';
-//import { Navigate, Outlet } from "react-router-dom";
 import {
-  BrowserRouter,
   Route,
-  Switch,
   Redirect
 } from 'react-router-dom';
-import { useContext } from 'react';
-import {AuthContext} from "./login.js";
-import Islogin from "./Islogin.js";
+
+export default function ProtectedRoutes(props) {   
+  let user = null;
+
+  if(localStorage.getItem('jwt')) {
+    user = localStorage.getItem('jwt');
+  }
+
+  const { component: Component,
+      ...rest } = props;
 
 
-const ProtectedRoutes = ({ component: Component, ...rest }) => {
-  
-
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        Islogin() ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/",
-            }}
-          />
-        )
+    if(user){
+      return ( <Route {...rest} render={(props) => (<Component {...props}/>)}/>)
+      } else {
+        return <Redirect to='/'/> 
       }
-    />
-  );
-}
 
-export default ProtectedRoutes;
+}

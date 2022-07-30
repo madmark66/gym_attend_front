@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { createContext,useState, useEffect } from 'react';
 import './App.css';
-import MaterialTable from 'material-table'
-
-import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./login";
-import Register from "./register";
+import Login from "./Login";
+import Register from "./Register";
 import AddClassRecord from "./addClassRecord";
 import AddPaymentRecord from "./addPaymentRecord";
 import ClassRecord from "./ClassRecord";
@@ -14,50 +11,39 @@ import PersonShowedUp from './personShowedUp';
 import RemainingDeadline from './remainingDeadline';
 import Payment from './payment';
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
-import Home from "./Home"
-import {AppContextProvider} from "./login.js";
+
+
+export const UserContext = createContext(null);
 
 function App() {
+
+  const [user, setUser] = useState(null);
 
   return (
   <Router>
        
-          <Switch>
-            <AppContextProvider>
-              {/* <Route exact path="/home">
-                <Home />
-              </Route> */}
+          <UserContext.Provider value={{ user, setUser }}>            
+            <Switch>
+              
               <Route exact path='/' >
                 <Login />
               </Route>
+
               <Route exact path='/register' >
                 <Register />
               </Route>
 
-              {/* <Route>
-                <ProtectedRoutes />
-              </Route> */}
-
               <ProtectedRoutes path="/ClassRecord" exact component={ClassRecord}/>
+              <ProtectedRoutes path="/addClassRecord" exact component={AddClassRecord}/>
+              <ProtectedRoutes path="/payment" exact component={Payment}/>
+              <ProtectedRoutes path="/addPaymentRecord" exact component={AddPaymentRecord}/>
+              <ProtectedRoutes path="/revenue" exact component={Revenue}/>
+              <ProtectedRoutes path="/personShowedUp" exact component={PersonShowedUp}/>
+              <ProtectedRoutes path="/remainingDeadline" exact component={RemainingDeadline}/>
 
-              <ProtectedRoutes path="/home" exact component={Home}/>
-               
+            </Switch>
+          </UserContext.Provider>  
 
-            </AppContextProvider>
-          {/* <Route path="/home" component={<Home />} />
-            <Route path='/' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-              <Route element={<ProtectedRoutes />}>
-                <Route path='/ClassRecord' element={<ClassRecord />} />
-                <Route path='/payment' element={<Payment />} />
-                <Route path='/addClassRecord' element={<AddClassRecord/>} />
-                <Route path='/addPaymentRecord' element={<AddPaymentRecord/>} />
-                <Route path='/revenue' element={<Revenue/>} />
-                <Route path='/personShowedUp' element={<PersonShowedUp/>} />
-                <Route path='/remainingDeadline' element={<RemainingDeadline/>} />
-              </Route> */}
-          </Switch>
-        
   </Router>
   );
 }
